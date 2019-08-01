@@ -20,7 +20,7 @@ module ThemingHelper
   # Returns the logo based on user's provider
   def logo_image
     Setting.find_or_create_by(provider: user_settings_provider)
-           .get_value("Branding Image") || Rails.configuration.branding_image_custom
+           .get_value("Branding Image") || "https://raw.githubusercontent.com/jeremyn54/greenlight/master/app/assets/images/logo_with_text.png"
   end
 
   # Returns the primary color based on user's provider
