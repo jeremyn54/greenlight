@@ -20,7 +20,7 @@ module ThemingHelper
   # Returns the logo based on user's provider
   def logo_image
     Setting.find_or_create_by(provider: user_settings_provider)
-           .get_value("Branding Image") || "https://raw.githubusercontent.com/jeremyn54/greenlight/master/app/assets/images/logo_with_text.png"
+           .get_value("Branding Image") || Rails.configuration.branding_image_default
   end
 
   # Returns the primary color based on user's provider
@@ -31,7 +31,7 @@ module ThemingHelper
 
   # Returns the user's provider in the settings context
   def user_settings_provider
-    if Rails.configuration.loadbalanced_configuration && current_user && !current_user&.has_cached_role?(:super_admin)
+    if Rails.configuration.loadbalanced_configuration && current_user && !current_user&.has_role?(:super_admin)
       current_user.provider
     elsif Rails.configuration.loadbalanced_configuration
       @user_domain
